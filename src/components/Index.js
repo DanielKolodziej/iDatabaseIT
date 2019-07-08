@@ -51,21 +51,12 @@ const Index = () => {
                     let i;
                     let updatedArr = [];
                     for(i = 0; i < response.data.length; i++){
-                        if(type === 'keywords'){
-                            if(response.data[i].keywords.trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-                                console.log('FOUND!', response.data[i])
-                                updatedArr.push(response.data[i]);
-                            }
-                        } else {
-                            if(response.data[i].title.trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-                                console.log('FOUND!', response.data[i])
-                                updatedArr.push(response.data[i]);
-                            }
+                        if(response.data[i][type].trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
+                                    console.log('FOUND!', response.data[i])
+                                    updatedArr.push(response.data[i]);
                         }
                     }
                     setEntries(updatedArr);
-                    // console.log('updated array',updatedArr);
-                    // console.log('entries state',entries);
                     }
                 })
             .catch(error => {
