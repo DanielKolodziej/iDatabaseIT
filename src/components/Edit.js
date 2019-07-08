@@ -13,7 +13,10 @@ const Edit = (props) => {
     const [entry, setEntry] = useState(initialFormState);
 
     useEffect(()=>{
-        axios.get(`http://localhost:4000/entries/edit/${props.match.params.id}`)
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        axios.get(`http://localhost:4000/entries/edit/${props.match.params.id}`, {signal: signal})
             .then(response => {
                 setEntry({
                     title: response.data.title,
@@ -24,6 +27,12 @@ const Edit = (props) => {
             .catch(error => {
                 console.log(error);
             })
+
+        return function cleanup(){
+            console.log('edit useEffect clean up...');
+            abortController.abort();//cancal subscription by abort
+        }
+
     },[]);
 
     const handleInputChange = (e) => {

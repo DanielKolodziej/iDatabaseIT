@@ -11,17 +11,26 @@ const divStyle = {
 
 const Index = () => {
     const [entries, setEntries] = useState([]);
-    const [updateSearch, setUpdateSearch] = useState(true);
+    const [updateSearch, setUpdateSearch] = useState(false);
     
     useEffect(()=> {
-        axios.get('http://localhost:4000/entries')
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        axios.get('http://localhost:4000/entries', {signal: signal})//pass signal from abortController
             .then(response => {
                 setEntries(response.data);
             })
             .catch(error => {
                 console.log(error);
             })
-    }, [entries, updateSearch]);
+
+        return function cleanup(){
+            console.log('index useEffect clean up...')
+            abortController.abort();//cancel subscription by abort
+        }
+        
+    }, []);
 
     const tableRow = () => {
         return entries.map((object, i) => {

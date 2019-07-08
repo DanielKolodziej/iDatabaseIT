@@ -13,7 +13,10 @@ const Details = (props) => {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        axios.get(`http://localhost:4000/entries/edit/${props.match.params.id}`)
+        const abortController = new AbortController();
+        const signal = abortController.signal;
+
+        axios.get(`http://localhost:4000/entries/edit/${props.match.params.id}`, {signal: signal})
             .then(response => {
                 setEntry({
                     title: response.data.title,
@@ -25,6 +28,11 @@ const Details = (props) => {
             .catch(error => {
                 console.log(error);
             })
+
+        return function cleanup(){
+            console.log('detail useEffect clean up...');
+            abortController.abort();//cancal subscription by abort
+        }
     }, []);
 
     return(
