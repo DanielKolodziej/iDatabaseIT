@@ -44,6 +44,7 @@ const Index = () => {
 
         axios.get('http://localhost:4000/entries')
             .then(response => {
+                //if search term is empty set entries to all
                 if(term.trim().length === 0){
                     setEntries(response.data);
                 } else{
@@ -52,17 +53,19 @@ const Index = () => {
                     for(i = 0; i < response.data.length; i++){
                         if(type === 'keywords'){
                             if(response.data[i].keywords.trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-                                console.log('FOUND!')
+                                console.log('FOUND!', response.data[i])
                                 updatedArr.push(response.data[i]);
                             }
                         } else {
                             if(response.data[i].title.trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-                                console.log('FOUND!')
+                                console.log('FOUND!', response.data[i])
                                 updatedArr.push(response.data[i]);
                             }
                         }
-                        setEntries(updatedArr);
                     }
+                    setEntries(updatedArr);
+                    // console.log('updated array',updatedArr);
+                    // console.log('entries state',entries);
                     }
                 })
             .catch(error => {
