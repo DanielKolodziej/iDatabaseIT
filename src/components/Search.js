@@ -14,9 +14,8 @@ const Search = (props) => {
         event.preventDefault();
         props.onTermSubmit(type, term);
         setTerm('');
-        console.log('before search update:',props.updateSearch);
+        console.log('current searchTerm state:',props.updateSearch);
         props.setUpdateSearch(!props.updateSearch);
-        console.log('after search update:', props.updateSearch);
     }
 
     return (

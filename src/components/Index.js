@@ -41,9 +41,6 @@ const Index = () => {
     const onTermSubmit = (type, term) => {
         console.log("searched: ",term);
         console.log("searched by: ",type);
-        // console.log('before:',updateSearch);
-        // setUpdateSearch(!updateSearch);
-        // console.log('after:',updateSearch);
 
         axios.get('http://localhost:4000/entries')
             .then(response => {
@@ -65,9 +62,6 @@ const Index = () => {
                             }
                         }
                         setEntries(updatedArr);
-                        // console.log('axios before: ',updateSearch)
-                        // setUpdateSearch(!updateSearch);
-                        // console.log('axios after: ',updateSearch)
                     }
                     }
                 })
