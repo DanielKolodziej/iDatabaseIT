@@ -51,6 +51,7 @@ entryRoutes.route('/update/:id').post((req, res) => {
             entries.title = req.body.title;
             entries.author = req.body.author;
             entries.keywords = req.body.keywords;
+            entries.body = req.body.body;
             entries.date = req.body.date;
             entries.save().then(entries => {
                 res.json('update complete')
