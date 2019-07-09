@@ -9,7 +9,7 @@ const divStyle = {
 
 
 const Edit = (props) => {
-    const initialFormState = {title: '', author: '', keywords: ''};
+    const initialFormState = {title: '', author: '', keywords: '', body: ''};
     const [entry, setEntry] = useState(initialFormState);
 
     useEffect(()=>{
@@ -21,7 +21,8 @@ const Edit = (props) => {
                 setEntry({
                     title: response.data.title,
                     author: response.data.author,
-                    keywords: response.data.keywords
+                    keywords: response.data.keywords,
+                    body: response.data.body
                 });
             })
             .catch(error => {
@@ -44,7 +45,8 @@ const Edit = (props) => {
         const obj = {
             title: entry.title,
             author: entry.author,
-            keywords: entry.keywords
+            keywords: entry.keywords,
+            body: entry.body
         };
         axios.post(`http://localhost:4000/entries/update/${props.match.params.id}`, obj)
             .then(res => {
@@ -79,7 +81,14 @@ const Edit = (props) => {
                                 name="keywords"
                                 value={entry.keywords}
                                 onChange={handleInputChange}/>
-                </div>
+                        </div>
+                        <div className="field">
+                            <label>Body Details:</label>
+                            <textarea
+                                name="body"
+                                value={entry.body}
+                                onChange={handleInputChange}/>
+                        </div>
                     <div>
                         <input
                             type="submit"
