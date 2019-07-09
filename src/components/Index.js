@@ -10,7 +10,8 @@ const divStyle = {
 
 
 const Index = () => {
-    const [entries, setEntries] = useState([]);
+    const [initialEntries, setInitialEntries]=useState([]);//original list of all entries
+    const [entries, setEntries] = useState([]);//modified current list based on search
     const [updateSearch, setUpdateSearch] = useState(false);
     
     useEffect(()=> {
@@ -20,6 +21,7 @@ const Index = () => {
         axios.get('http://localhost:4000/entries', {signal: signal})//pass signal from abortController
             .then(response => {
                 setEntries(response.data);
+                setInitialEntries(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -42,47 +44,63 @@ const Index = () => {
         console.log("searched: ",term);
         console.log("searched by: ",type);
 
-        axios.get('http://localhost:4000/entries')
-            .then(response => {
-                //if search term is empty set entries to all
-                if(term.trim().length === 0){
-                    setEntries(response.data);
-                } else{
-                    let i;
-                    let updatedArr = [];
-                    for(i = 0; i < response.data.length; i++){
-                        if(response.data[i][type].trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-                                    console.log('FOUND!', response.data[i])
-                                    updatedArr.push(response.data[i]);
-                        }
-                    }
-                    setEntries(updatedArr);
-                    }
-                })
-            .catch(error => {
-                console.log(error);
-            })
+        if(term.trim().length === 0){
+            setEntries(initialEntries);
+        } else{
+            let i;
+            let updatedArr = [];
+            for(i = 0; i < initialEntries.length; i++){
+                if(initialEntries[i][type].trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
+                    console.log('FOUND!', initialEntries[i])
+                    updatedArr.push(initialEntries[i]);
+                }
+            }
+            setEntries(updatedArr);
         }
-        return(
-            <div style={divStyle}>
-                <Search onTermSubmit={onTermSubmit} updateSearch={updateSearch} setUpdateSearch={setUpdateSearch}/>
-                <h3>List of Entries:</h3>
-                <h5>{entries.length} results displayed...</h5>
-                <table className="ui celled structured table unstackable">
-                    <thead>
-                        <tr>
-                            <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Title</th>
-                            <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Author</th>
-                            <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Keywords</th>
-                            <th colSpan="1" style={{minWidth: 280, color: '#FAE5D3',backgroundColor: '#2185d0'}}>Action</th>
-                        </tr> 
-                    </thead>
-                    <tbody>
-                        {tableRow()}
-                    </tbody>
-                </table>
-            </div>
-        )
+    }
+        //change to pull from "entries" instead of making another request?
+        // axios.get('http://localhost:4000/entries')
+        //     .then(response => {
+        //         //if search term is empty set entries to all
+        //         if(term.trim().length === 0){
+        //             setEntries(response.data);
+        //         } else{
+        //             let i;
+        //             let updatedArr = [];
+        //             for(i = 0; i < response.data.length; i++){
+        //                 if(response.data[i][type].trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
+        //                             console.log('FOUND!', response.data[i])
+        //                             updatedArr.push(response.data[i]);
+        //                 }
+        //             }
+        //             setEntries(updatedArr);
+        //             }
+        //         })
+        //     .catch(error => {
+        //         console.log(error);
+        //     })
+        // }
+
+    return(
+        <div style={divStyle}>
+            <Search onTermSubmit={onTermSubmit} updateSearch={updateSearch} setUpdateSearch={setUpdateSearch}/>
+            <h3>List of Entries:</h3>
+            <h5>{entries.length} results displayed...</h5>
+            <table className="ui celled structured table unstackable">
+                <thead>
+                    <tr>
+                        <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Title</th>
+                        <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Author</th>
+                        <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Keywords</th>
+                        <th colSpan="1" style={{minWidth: 280,color: '#fff',backgroundColor: '#2185d0',textShadow: '-1px -1px 0 #191919,1px -1px 0 #191919,-1px 1px 0 #191919,1px 1px 0 #191919'}}>Action</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {tableRow()}
+                </tbody>
+            </table>
+        </div>
+    )
 }
 
 
