@@ -8,7 +8,7 @@ const divStyle = {
 };
 
 const Details = (props) => {
-    const initialFormState = {title: '', author: '', keywords: ''};
+    const initialFormState = {title: '', author: '', keywords: '', body: ''};
     const [entry, setEntry] = useState(initialFormState);
     const [date, setDate] = useState('');
 
@@ -21,7 +21,8 @@ const Details = (props) => {
                 setEntry({
                     title: response.data.title,
                     author: response.data.author,
-                    keywords: response.data.keywords
+                    keywords: response.data.keywords,
+                    body: response.data.body
                 });
                 setDate(response.data.date);
             })
@@ -49,6 +50,9 @@ const Details = (props) => {
                 </div>
                 <div>
                     <label>Date Created: {date}</label>
+                </div>
+                <div>
+                    <label>Body: {entry.body}</label>
                 </div>
                 <Link to={`/index`}><button className="ui primary button">Back</button></Link>
         </div>
