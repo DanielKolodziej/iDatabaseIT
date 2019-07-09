@@ -8,7 +8,7 @@ const divStyle = {
 };
 
 const Create = () => {
-    const initialFormState = {title: '', author: '', keywords: ''};
+    const initialFormState = {title: '', author: '', keywords: '', body: ''};
     const [entry, setEntry] = useState(initialFormState);
     const [date, setDate] = useState('');
 
@@ -38,6 +38,7 @@ const Create = () => {
         console.log(`Title: ${entry.title},
                     Author: ${entry.author},
                     Keywords: ${entry.keywords},
+                    Body: ${entry.body},
                     Date Created: ${date}`
         );
 
@@ -45,6 +46,7 @@ const Create = () => {
             title: entry.title,
             author: entry.author,
             keywords: entry.keywords,
+            body: entry.body,
             date: date
         };
         axios.post('http://localhost:4000/entries/add', response)
@@ -83,7 +85,10 @@ const Create = () => {
             </div>
             <div className="field">
                 <label>Add Entry Details:</label>
-                <textarea/>
+                <textarea
+                    name="body"
+                    value={entry.body}
+                    onChange={handleInputChange}/>
             </div>
             <div className="field">
                 <input
