@@ -7,6 +7,7 @@ import Create from './components/Create';
 import Edit from './components/Edit';
 import Index from './components/Index';
 import Details from './components/Details';
+import Login from './components/Login';
 
 class App extends React.Component {
   render() {
@@ -20,6 +21,7 @@ class App extends React.Component {
             <Link className="item" to={'/'}>Home</Link>
             <Link className="item" to={'/create'}>Add Entry</Link>
             <Link className="item" to={'/index'}>Index Library</Link>
+            <Link className="item" to={'/login'}>Login</Link>
           </div>
           <Switch>
             <Route exact path='/' component = { Home }/>
@@ -27,6 +29,7 @@ class App extends React.Component {
             <Route exact path='/details/:id' component = { Details }/>
             <Route exact path='/edit/:id' component = { Edit }/>
             <Route exact path='/index' component = { Index }/>
+            <Route exact path='/login' component = { Login }/>
           </Switch>
         </div>
       </Router>

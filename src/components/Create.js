@@ -59,7 +59,7 @@ const Create = () => {
         <div style={divStyle}>
             <form className="ui form" onSubmit={onSubmit}>
             <h3 className="ui dividing header">Add Entry</h3> 
-            <div className="field">
+            <div className="required field">
                 <label>Add Title:</label>
                 <input
                     type="text"
@@ -67,7 +67,7 @@ const Create = () => {
                     value={entry.title}
                     onChange={handleInputChange}/>
             </div>
-            <div className="field">
+            <div className="required field">
                 <label>Add Author:</label>
                 <input
                     type="text"
