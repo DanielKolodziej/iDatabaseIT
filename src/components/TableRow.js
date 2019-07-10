@@ -25,9 +25,9 @@ const TableRow = (props) => {
             <td>
                 {props.obj.keywords}
             </td>
-            <td>
+            <td className="ui center aligned">
                 <Link to={`/details/${props.obj._id}`}><button className="ui primary button">Open</button></Link>
-                <Link to={`/edit/${props.obj._id}`}><button className="ui basic button">Edit</button></Link>
+                {/* <Link to={`/edit/${props.obj._id}`}><button className="ui basic button">Edit</button></Link> */}
                 {/* <button className="ui basic red button" onClick={deleteItem}>Delete</button> */}
             </td>
         </tr>

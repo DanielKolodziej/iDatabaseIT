@@ -70,7 +70,7 @@ const Index = () => {
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Title</th>
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Author</th>
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Keywords</th>
-                        <th colSpan="1" style={{minWidth: 180,color: '#fff',backgroundColor: '#2185d0',textShadow: '-1px -1px 0 #191919,1px -1px 0 #191919,-1px 1px 0 #191919,1px 1px 0 #191919'}}>Action</th>
+                        <th className="ui center aligned" colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0',textShadow: '-1px -1px 0 #191919,1px -1px 0 #191919,-1px 1px 0 #191919,1px 1px 0 #191919'}}>Action</th>
                     </tr> 
                 </thead>
                 <tbody>

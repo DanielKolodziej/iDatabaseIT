@@ -66,6 +66,7 @@ const Details = (props) => {
                     <label>Body:</label>
                     <p style={{marginLeft: '5%', marginRight: '5%', whiteSpace: 'pre-wrap'}}>{entry.body}</p>
                 </div>
+                <Link to={`/edit/${props.match.params.id}`}><button className="ui basic button">Edit</button></Link>
                 <Link to={`/index`}><button className="ui basic red button" onClick={deleteitem}>Delete</button></Link>
                 <Link to={`/index`}><button className="ui basic button">Back</button></Link>
         </div>
