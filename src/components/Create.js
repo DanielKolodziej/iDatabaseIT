@@ -16,20 +16,20 @@ const Create = () => {
         const { name, value } = e.target;
         setEntry({...entry, [name]: value})
     }
-        
-    //helper function to get the present date of creation
-    const getTodayDate = () => {
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let yyyy = today.getFullYear();
-        
-        today = mm + '/' + dd + '/' + yyyy;
-        console.log('today',today);
-        setDate(today);
-    }
 
     useEffect(()=>{
+        //helper function to get the present date of creation
+        const getTodayDate = () => {
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+            
+            today = mm + '/' + dd + '/' + yyyy;
+            console.log('today',today);
+            setDate(today);
+        }
+
         getTodayDate();
     }, []);
 

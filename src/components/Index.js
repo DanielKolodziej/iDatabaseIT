@@ -13,7 +13,7 @@ const Index = () => {
     const [initialEntries, setInitialEntries]=useState([]);//original list of all entries
     const [entries, setEntries] = useState([]);//modified current list based on search
     const [updateSearch, setUpdateSearch] = useState(false);
-    
+
     useEffect(()=> {
         const abortController = new AbortController();
         const signal = abortController.signal;
@@ -29,7 +29,7 @@ const Index = () => {
 
         return function cleanup(){
             console.log('index useEffect clean up...')
-            abortController.abort();//cancel subscription by abort
+            abortController.abort();//axios cancellation
         }
         
     }, []);
@@ -58,28 +58,6 @@ const Index = () => {
             setEntries(updatedArr);
         }
     }
-        //change to pull from "entries" instead of making another request?
-        // axios.get('http://localhost:4000/entries')
-        //     .then(response => {
-        //         //if search term is empty set entries to all
-        //         if(term.trim().length === 0){
-        //             setEntries(response.data);
-        //         } else{
-        //             let i;
-        //             let updatedArr = [];
-        //             for(i = 0; i < response.data.length; i++){
-        //                 if(response.data[i][type].trim().toLowerCase().indexOf(term.trim().toLowerCase()) !== -1){
-        //                             console.log('FOUND!', response.data[i])
-        //                             updatedArr.push(response.data[i]);
-        //                 }
-        //             }
-        //             setEntries(updatedArr);
-        //             }
-        //         })
-        //     .catch(error => {
-        //         console.log(error);
-        //     })
-        // }
 
     return(
         <div style={divStyle}>
@@ -92,7 +70,7 @@ const Index = () => {
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Title</th>
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Author</th>
                         <th colSpan="1" style={{color: '#fff',backgroundColor: '#2185d0'}}>Keywords</th>
-                        <th colSpan="1" style={{minWidth: 280,color: '#fff',backgroundColor: '#2185d0',textShadow: '-1px -1px 0 #191919,1px -1px 0 #191919,-1px 1px 0 #191919,1px 1px 0 #191919'}}>Action</th>
+                        <th colSpan="1" style={{minWidth: 180,color: '#fff',backgroundColor: '#2185d0',textShadow: '-1px -1px 0 #191919,1px -1px 0 #191919,-1px 1px 0 #191919,1px 1px 0 #191919'}}>Action</th>
                     </tr> 
                 </thead>
                 <tbody>

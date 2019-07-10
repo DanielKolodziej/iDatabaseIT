@@ -32,9 +32,20 @@ const Details = (props) => {
 
         return function cleanup(){
             console.log('detail useEffect clean up...');
-            abortController.abort();//cancal subscription by abort
+            abortController.abort();//cancel subscription by abort
         }
     }, []);
+
+    const deleteitem = () => {
+        let result = window.confirm("Are you sure you want to delete this item?");
+            if (result){
+                axios.get(`http://localhost:4000/entries/delete/${props.match.params.id}`)
+                    .then(console.log('delete clicked...'))
+                    .catch((err => {
+                        console.log(err);
+                    }))
+            }
+    }
 
     return(
         <div style={divStyle}>
@@ -52,9 +63,11 @@ const Details = (props) => {
                     <label>Date Created: {date}</label>
                 </div>
                 <div>
-                    <label>Body: {entry.body}</label>
+                    <label>Body:</label>
+                    <p style={{marginLeft: '5%', marginRight: '5%'}}>{entry.body}</p>
                 </div>
-                <Link to={`/index`}><button className="ui primary button">Back</button></Link>
+                <Link to={`/index`}><button className="ui basic red button" onClick={deleteitem}>Delete</button></Link>
+                <Link to={`/index`}><button className="ui basic button">Back</button></Link>
         </div>
     )
 }
